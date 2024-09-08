@@ -1,7 +1,11 @@
 package hello.hello_spring.service;
 
 import hello.hello_spring.domain.Member;
+import hello.hello_spring.repository.MemberRepository;
+import hello.hello_spring.repository.MemoryMemberRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,6 +14,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
     MemberService memberService = new MemberService();
+    MemberRepository memberRepository = new MemoryMemberRepository();
+
+//    DI = 의존성 주입 시작
+    @BeforeEach
+    public void beforeEach() {
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository);
+    }
+
+
+    @AfterEach
+    public void afterEachTest() {
+        memberRepository.clearStore();
+    }
+
 
     @Test
     void join() {
@@ -36,8 +55,12 @@ class MemberServiceTest {
 
         //when
         memberService.join(member);
-        memberService.join(member1);
+        assertThrows(IllegalStateException.class, () -> memberService.join(member1)); // 1번 방법
+
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member1)); // 2번 방법
+        assertTrue(e.getMessage().contains("Member name is already in use"));
         //then
+//        Assertions.assertEquals(member, findMember);
     }
 
     @Test

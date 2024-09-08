@@ -8,7 +8,13 @@ import java.util.List;
 import java.util.Optional;
 
 public class MemberService {
-    private MemberRepository memberRepository = new MemoryMemberRepository();
+//    command + shift + T => 테스트파일 자동 생성
+    private final MemberRepository memberRepository;
+
+    //    DI = 의존성 주입 시작
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     /**
      * 회원 가입
