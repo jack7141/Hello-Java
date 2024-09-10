@@ -3,41 +3,33 @@ package hello.hello_spring.service;
 import hello.hello_spring.domain.Member;
 import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class MemberServiceTest {
+@SpringBootTest
+@Transactional
+class MemberServiceINTest {
     @Autowired
     MemberService memberService;
     @Autowired
     MemberRepository memberRepository;
 
-//    DI = 의존성 주입 시작
-    @BeforeEach
-    public void beforeEach() {
-        memberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memberRepository);
-    }
-
-
-    @AfterEach
-    public void afterEachTest() {
-        memberRepository.clearStore();
-    }
-
 
     @Test
+    @Commit
     void join() {
         //given
         Member member = new Member();
-        member.setName("test");
+        member.setName("ho!!!!@!!");
 
         //when
         Long newMember = memberService.join(member);
