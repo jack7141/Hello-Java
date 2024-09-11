@@ -29,7 +29,7 @@ class MemberServiceINTest {
     void join() {
         //given
         Member member = new Member();
-        member.setName("ho!!!!@!!");
+        member.setName("ho!!!!@!123213!");
 
         //when
         Long newMember = memberService.join(member);

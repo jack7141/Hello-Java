@@ -10,7 +10,7 @@ public class MemoryMemberRepositoryTest {
 
     @AfterEach
     public void afterEachTest() {
-        memberRepository.clearStore();
+//        memberRepository.clearStore();
     }
 
     @Test

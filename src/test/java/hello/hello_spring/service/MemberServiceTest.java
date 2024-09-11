@@ -29,7 +29,7 @@ class MemberServiceTest {
 
     @AfterEach
     public void afterEachTest() {
-        memberRepository.clearStore();
+//        memberRepository.clearStore();
     }
 
 
